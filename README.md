@@ -53,13 +53,11 @@ Per executar:
 ## Dependències afegides al `build.gradle.kts`
 
 ```kotlin
-// Unit tests
 testImplementation(libs.junit)
-testImplementation(libs.androidx.core.testing)   // InstantTaskExecutorRule
+testImplementation(libs.androidx.core.testing)
 testImplementation(libs.mockito.core)
 testImplementation(libs.mockito.kotlin)
 
-// Instrumented / UI tests
 androidTestImplementation(libs.androidx.junit)
 androidTestImplementation(libs.androidx.espresso.core)
 androidTestImplementation(platform(libs.androidx.compose.bom))

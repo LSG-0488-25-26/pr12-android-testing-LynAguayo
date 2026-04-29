@@ -17,14 +17,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-/**
- * Instrumental UI Tests de la MainView.
- *
- * Cobreix tots els composables que es renderitzen a la MainView:
- * Switch, Checkboxes (Carnívor, Vegetarià, Vega), TriStateCheckbox,
- * RadioButtons (Pilota d'Or), Slider, DropdownMenu, OutlinedTextField,
- * Botó Buscar, missatge del snackbar i botó Activat/Desactivat.
- */
 class MainViewUITest {
 
     @get:Rule
@@ -40,8 +32,6 @@ class MainViewUITest {
         }
     }
 
-    // -------------------- Textos estàtics --------------------
-
     @Test
     fun mainView_mostraTextos_estatics() {
         composeTestRule.onNodeWithText("Activar Wi-Fi: ").assertIsDisplayed()
@@ -53,19 +43,14 @@ class MainViewUITest {
         composeTestRule.onNodeWithText("Pilota d'Or:").assertIsDisplayed()
     }
 
-    // -------------------- Switch Wi-Fi --------------------
-
     @Test
     fun switchWifi_estatInicialOn_iCanviaAlClicar() {
-        // Estat inicial: ON (segons MainViewModel)
         composeTestRule.runOnIdle {
             assert(viewModel.estatSwitch.value == true)
         }
 
         composeTestRule.onNodeWithText("Activar Wi-Fi: ").assertIsDisplayed()
 
-        // El Switch és el primer node toggleable+clickable de la pantalla
-        // (apareix abans dels Checkbox a la jerarquia visual)
         composeTestRule
             .onAllNodes(hasClickAction().and(isToggleable()))[0]
             .performClick()
@@ -75,8 +60,6 @@ class MainViewUITest {
             assert(viewModel.estatSwitch.value == false)
         }
     }
-
-    // -------------------- Checkboxes Opcions de menú --------------------
 
     @Test
     fun checkbox_carnivor_estatInicialMarcatIDeshabilitat() {
@@ -109,8 +92,6 @@ class MainViewUITest {
         }
     }
 
-    // -------------------- TriStateCheckbox --------------------
-
     @Test
     fun triState_canviaSeguintLaSequencia() {
         composeTestRule.runOnIdle {
@@ -132,8 +113,6 @@ class MainViewUITest {
             assert(viewModel.triStateStatus.value == ToggleableState.Off)
         }
     }
-
-    // -------------------- RadioButtons Pilota d'Or --------------------
 
     @Test
     fun radioButton_vinicius_esVisible() {
@@ -160,8 +139,6 @@ class MainViewUITest {
         }
     }
 
-    // -------------------- Slider Volum --------------------
-
     @Test
     fun slider_mostraValorInicial() {
         composeTestRule.onNodeWithText("Volum: 0%").assertIsDisplayed()
@@ -173,8 +150,6 @@ class MainViewUITest {
         composeTestRule.waitForIdle()
         composeTestRule.onNodeWithText("Volum: 50%").assertIsDisplayed()
     }
-
-    // -------------------- DropdownMenu --------------------
 
     @Test
     fun dropdown_mostraSeleccioInicial() {
@@ -199,8 +174,6 @@ class MainViewUITest {
         }
     }
 
-    // -------------------- OutlinedTextField i botó Buscar --------------------
-
     @Test
     fun textField_acceptaTextEnviat() {
         composeTestRule.onNodeWithText("Buscar...").performTextInput("hola")
@@ -212,7 +185,6 @@ class MainViewUITest {
 
     @Test
     fun botoBuscar_mostraMissatgeAlClicar() {
-        // Inicialment no es mostra el text del snackbar
         composeTestRule.onAllNodesWithText("Acció completada!").assertCountEquals(0)
 
         composeTestRule.onNodeWithText("Buscar").performClick()
@@ -223,8 +195,6 @@ class MainViewUITest {
         }
         composeTestRule.onNodeWithText("Acció completada!").assertIsDisplayed()
     }
-
-    // -------------------- Botó Activat / Desactivat --------------------
 
     @Test
     fun botoToggle_mostraDesactivatPerDefecte() {
